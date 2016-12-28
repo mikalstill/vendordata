@@ -4,6 +4,7 @@
 # nod in the direction of Chad Lung for his very helpful blog post at
 # http://www.giantflyingsaucer.com/blog/?p=4701
 
+import json
 import sys
 
 from webob import Response
@@ -20,8 +21,20 @@ LOG = logging.getLogger(__name__)
 
 @wsgify
 def application(req):
-    LOG.debug('Application ran')
-    return Response('Hello World')
+    if req.environ.get('HTTP_X_IDENTITY_STATUS') != 'Confirmed':
+        return Response('User is not authenticated', status=401)
+
+    try:
+        data = req.environ.get('wsgi.input').read()
+        if not data:
+            return Response('No data provided', status=500)
+
+        input = json.loads(data)
+        return Response('Hello World: %s' % input)
+
+    except Exception as e:
+        return Response('Server error while processing request: %s' % e,
+                        status=500)
 
 
 def app_factory(global_config, **local_config):
