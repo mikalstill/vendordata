@@ -3,3 +3,5 @@ WebOb
 PasteDeploy
 keystonemiddleware
 oslo_middleware
+oslo_log
+oslo_config

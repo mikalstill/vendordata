@@ -25,3 +25,9 @@ token id, and you're good to make test requests against this server:
 
 $ cat token.json | python -c "import sys, json; print json.loads(sys.stdin.read())['access']['token']['id'];"
 
+We can then make an authenticated request to our vendordata sever:
+
+$ curl -H "X-Auth-Token: gAAAAABYYxBflgcovT_Vp6J6XccwtcjXUcMcdi83dYWpy49JRDb70QnlrnFCNP6BSxKqbPpQgMKDN0vv5PiLbyiRZFtIeK5C0FSoWIOT-laVs7IEbNrIm648zioLOE95HYqRPL7ew-CERUMEZBDE5uHxA5o2vHhNu4IIYl22uUnxjaRMxlFX3HQ" http://127.0.0.1:8080/
+
+
+
